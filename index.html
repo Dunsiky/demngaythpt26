@@ -1,248 +1,237 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Đếm ngược ngày thi THPT Quốc gia 2026</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
-
-  * {
-    box-sizing: border-box;
-  }
-
-  body {
-    margin: 0;
-    min-height: 100vh;
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    color: #fff;
-    text-align: center;
-    padding: 20px;
-  }
-
-  h1 {
-    font-size: 3rem;
-    margin-bottom: 0.2em;
-    text-shadow: 0 2px 8px rgba(0,0,0,0.3);
-  }
-
-  p.subtitle {
-    font-size: 1.2rem;
-    margin-top: 0;
-    margin-bottom: 2rem;
-    font-weight: 500;
-    text-shadow: 0 1px 5px rgba(0,0,0,0.2);
-  }
-
-  #countdown {
-    display: flex;
-    gap: 2rem;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-bottom: 3rem;
-  }
-
-  .time-box {
-    background: rgba(255, 255, 255, 0.15);
-    padding: 1.5rem 2.5rem;
-    border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-    min-width: 110px;
-    transition: background 0.3s ease;
-  }
-  .time-box:hover {
-    background: rgba(255, 255, 255, 0.3);
-  }
-
-  .number {
-    font-size: 4rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    line-height: 1;
-    position: relative;
-    perspective: 1000px;
-  }
-
-  .number span {
-    display: inline-block;
-    animation: flip 0.6s ease forwards;
-  }
-
-  @keyframes flip {
-    0% {
-      transform: rotateX(90deg);
-      opacity: 0;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Đếm ngược ngày thi THPT Quốc gia 2026</title>
+  <!-- Load font Poppins từ Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
     }
-    100% {
-      transform: rotateX(0deg);
-      opacity: 1;
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
-  }
-
-  .label {
-    margin-top: 0.5rem;
-    font-size: 1.1rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: #e0e0e0;
-    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
-  }
-
-  /* Phần mẹo học tập */
-  #study-tips {
-    max-width: 600px;
-    background: rgba(255, 255, 255, 0.15);
-    border-radius: 15px;
-    padding: 25px 30px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-    text-align: left;
-    color: #fff;
-    font-weight: 500;
-    line-height: 1.5;
-  }
-
-  #study-tips h2 {
-    text-align: center;
-    font-size: 2rem;
-    margin-bottom: 1rem;
-    text-shadow: 0 2px 6px rgba(0,0,0,0.3);
-  }
-
-  .tip {
-    margin-bottom: 1.5rem;
-  }
-
-  .tip-title {
-    font-weight: 700;
-    font-size: 1.3rem;
-    margin-bottom: 0.3rem;
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-  }
-
-  .tip-title span.emoji {
-    font-size: 1.6rem;
-  }
-
-  .tip-desc {
-    font-size: 1rem;
-    color: #e0e0e0;
-    padding-left: 2.2rem;
-  }
-
-  footer {
-    margin-top: 3rem;
-    font-size: 1rem;
-    font-style: italic;
-    color: #dcdcdc;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
-  }
-
-  @media (max-width: 480px) {
     h1 {
-      font-size: 2rem;
-    }
-    .number {
       font-size: 3rem;
+      margin-bottom: 0.2em;
+      font-weight: 700;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+    p.subtitle {
+      font-size: 1.2rem;
+      margin-top: 0;
+      margin-bottom: 2rem;
+      font-weight: 600;
+      text-shadow: 0 1px 5px rgba(0,0,0,0.2);
+    }
+    #countdown {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 3rem;
     }
     .time-box {
-      min-width: 80px;
-      padding: 1rem 1.5rem;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 1.5rem 2.5rem;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      min-width: 110px;
+      transition: background 0.3s ease;
     }
+    .time-box:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+    .number {
+      font-size: 4rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      line-height: 1;
+      position: relative;
+      perspective: 1000px;
+    }
+    .number span {
+      display: inline-block;
+      animation: flip 0.6s ease forwards;
+    }
+    @keyframes flip {
+      0% {
+        transform: rotateX(90deg);
+        opacity: 0;
+      }
+      100% {
+        transform: rotateX(0deg);
+        opacity: 1;
+      }
+    }
+    .label {
+      margin-top: 0.5rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #e0e0e0;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    }
+    /* Phần mẹo học tập */
     #study-tips {
-      padding: 20px 15px;
+      max-width: 600px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 15px;
+      padding: 25px 30px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+      text-align: left;
+      color: #fff;
+      font-weight: 500;
+      line-height: 1.5;
+      user-select: none;
     }
-  }
-</style>
+    #study-tips h2 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+    .tip {
+      margin-bottom: 1.5rem;
+    }
+    .tip-title {
+      font-weight: 700;
+      font-size: 1.3rem;
+      margin-bottom: 0.3rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .tip-title span.emoji {
+      font-size: 1.6rem;
+      user-select: text;
+    }
+    .tip-desc {
+      font-size: 1rem;
+      color: #e0e0e0;
+      padding-left: 2.2rem;
+      user-select: text;
+    }
+    footer {
+      margin-top: 3rem;
+      font-size: 1rem;
+      font-style: italic;
+      color: #dcdcdc;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+      user-select: none;
+    }
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 2rem;
+      }
+      .number {
+        font-size: 3rem;
+      }
+      .time-box {
+        min-width: 80px;
+        padding: 1rem 1.5rem;
+      }
+      #study-tips {
+        padding: 20px 15px;
+      }
+    }
+  </style>
 </head>
 <body>
 
-<h1>Đếm ngược ngày thi THPT Quốc gia 2026</h1>
-<p class="subtitle">Kỳ thi dự kiến bắt đầu vào ngày <strong>13 tháng 6 năm 2026</strong></p>
+  <h1>Đếm ngược ngày thi THPT Quốc gia 2026</h1>
+  <p class="subtitle">Kỳ thi dự kiến bắt đầu vào ngày <strong>13 tháng 6 năm 2026</strong></p>
 
-<div id="countdown">
-  <div class="time-box">
-    <div id="days" class="number">0</div>
-    <div class="label">Ngày</div>
-  </div>
-  <div class="time-box">
-    <div id="hours" class="number">00</div>
-    <div class="label">Giờ</div>
-  </div>
-  <div class="time-box">
-    <div id="minutes" class="number">00</div>
-    <div class="label">Phút</div>
-  </div>
-  <div class="time-box">
-    <div id="seconds" class="number">00</div>
-    <div class="label">Giây</div>
-  </div>
-</div>
-
-<section id="study-tips" aria-label="Mẹo học tập hiệu quả">
-  <h2>Mẹo học tập hiệu quả</h2>
-
-  <div class="tip">
-    <div class="tip-title"><span class="emoji">📚</span> Đọc hiểu sâu</div>
-    <div class="tip-desc">Ghi chú và tóm tắt những điểm quan trọng khi đọc</div>
+  <div id="countdown" aria-label="Đồng hồ đếm ngược">
+    <div class="time-box" role="timer" aria-live="polite" aria-atomic="true">
+      <div id="days" class="number" aria-label="Số ngày">0</div>
+      <div class="label">Ngày</div>
+    </div>
+    <div class="time-box" role="timer" aria-live="polite" aria-atomic="true">
+      <div id="hours" class="number" aria-label="Số giờ">00</div>
+      <div class="label">Giờ</div>
+    </div>
+    <div class="time-box" role="timer" aria-live="polite" aria-atomic="true">
+      <div id="minutes" class="number" aria-label="Số phút">00</div>
+      <div class="label">Phút</div>
+    </div>
+    <div class="time-box" role="timer" aria-live="polite" aria-atomic="true">
+      <div id="seconds" class="number" aria-label="Số giây">00</div>
+      <div class="label">Giây</div>
+    </div>
   </div>
 
-  <div class="tip">
-    <div class="tip-title"><span class="emoji">⏰</span> Quản lý thời gian</div>
-    <div class="tip-desc">Sử dụng kỹ thuật Pomodoro để tập trung học tập</div>
-  </div>
+  <section id="study-tips" aria-label="Mẹo học tập hiệu quả">
+    <h2>Mẹo học tập hiệu quả</h2>
 
-  <div class="tip">
-    <div class="tip-title"><span class="emoji">🧘</span> Giữ bình tĩnh</div>
-    <div class="tip-desc">Thực hành thiền định và bài tập thở giúp giảm căng thẳng</div>
-  </div>
-</section>
+    <div class="tip">
+      <div class="tip-title"><span class="emoji" aria-hidden="true">📚</span> Đọc hiểu sâu</div>
+      <div class="tip-desc">Ghi chú và tóm tắt những điểm quan trọng khi đọc</div>
+    </div>
 
-<footer>Chúc các bạn học sinh ôn thi hiệu quả và đạt kết quả cao!</footer>
+    <div class="tip">
+      <div class="tip-title"><span class="emoji" aria-hidden="true">⏰</span> Quản lý thời gian</div>
+      <div class="tip-desc">Sử dụng kỹ thuật Pomodoro để tập trung học tập</div>
+    </div>
 
-<script>
-  const targetDate = new Date('2026-06-13T00:00:00');
+    <div class="tip">
+      <div class="tip-title"><span class="emoji" aria-hidden="true">🧘</span> Giữ bình tĩnh</div>
+      <div class="tip-desc">Thực hành thiền định và bài tập thở giúp giảm căng thẳng</div>
+    </div>
+  </section>
 
-  function animateNumberChange(element, newNumber) {
-    const span = document.createElement('span');
-    span.textContent = newNumber.toString().padStart(2, '0');
-    element.textContent = '';
-    element.appendChild(span);
-  }
+  <footer>Chúc các bạn học sinh ôn thi hiệu quả và đạt kết quả cao!</footer>
 
-  function updateCountdown() {
-    const now = new Date();
-    const diff = targetDate - now;
+  <script>
+    const targetDate = new Date('2026-06-13T00:00:00');
 
-    if (diff <= 0) {
-      ['days', 'hours', 'minutes', 'seconds'].forEach(id => {
-        document.getElementById(id).textContent = id === 'days' ? '0' : '00';
-      });
-      clearInterval(timer);
-      alert('Kỳ thi THPT Quốc gia 2026 đã bắt đầu!');
-      return;
+    function animateNumberChange(element, newNumber) {
+      const span = document.createElement('span');
+      span.textContent = newNumber.toString().padStart(2, '0');
+      element.textContent = '';
+      element.appendChild(span);
     }
 
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((diff / (1000 * 60)) % 60);
-    const seconds = Math.floor((diff / 1000) % 60);
+    function updateCountdown() {
+      const now = new Date();
+      const diff = targetDate - now;
 
-    animateNumberChange(document.getElementById('days'), days);
-    animateNumberChange(document.getElementById('hours'), hours);
-    animateNumberChange(document.getElementById('minutes'), minutes);
-    animateNumberChange(document.getElementById('seconds'), seconds);
-  }
+      if (diff <= 0) {
+        ['days', 'hours', 'minutes', 'seconds'].forEach(id => {
+          document.getElementById(id).textContent = id === 'days' ? '0' : '00';
+        });
+        clearInterval(timer);
+        alert('Kỳ thi THPT Quốc gia 2026 đã bắt đầu!');
+        return;
+      }
 
-  updateCountdown();
-  const timer = setInterval(updateCountdown, 1000);
-</script>
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      animateNumberChange(document.getElementById('days'), days);
+      animateNumberChange(document.getElementById('hours'), hours);
+      animateNumberChange(document.getElementById('minutes'), minutes);
+      animateNumberChange(document.getElementById('seconds'), seconds);
+    }
+
+    updateCountdown();
+    const timer = setInterval(updateCountdown, 1000);
+  </script>
 
 </body>
 </html>
