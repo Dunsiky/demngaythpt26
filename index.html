@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Đếm ngược ngày thi THPT Quốc gia 2026</title>
-  <!-- Load font Poppins từ Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
   <style>
     * {
@@ -21,6 +20,8 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      overflow-x: hidden;
+      position: relative;
     }
     h1 {
       font-size: 3rem;
@@ -41,6 +42,8 @@
       justify-content: center;
       flex-wrap: wrap;
       margin-bottom: 3rem;
+      z-index: 10;
+      position: relative;
     }
     .time-box {
       background: rgba(255, 255, 255, 0.15);
@@ -84,21 +87,22 @@
       color: #e0e0e0;
       text-shadow: 0 1px 3px rgba(0,0,0,0.3);
     }
-    /* Phần mẹo học tập */
-    #study-tips {
+    #study-tips, #quotes {
       max-width: 600px;
       background: rgba(255, 255, 255, 0.15);
       border-radius: 15px;
       padding: 25px 30px;
       box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-      text-align: left;
       color: #fff;
       font-weight: 500;
       line-height: 1.5;
       user-select: none;
       margin-bottom: 3rem;
+      text-align: left;
+      position: relative;
+      z-index: 10;
     }
-    #study-tips h2 {
+    #study-tips h2, #quotes h2 {
       text-align: center;
       font-size: 2rem;
       margin-bottom: 1rem;
@@ -126,30 +130,12 @@
       padding-left: 2.2rem;
       user-select: text;
     }
-    /* Phần câu nói hay */
-    #quotes {
-      max-width: 600px;
-      background: rgba(255, 255, 255, 0.15);
-      border-radius: 15px;
-      padding: 25px 30px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-      color: #fff;
-      font-style: italic;
-      user-select: none;
-      margin-bottom: 3rem;
-    }
-    #quotes h2 {
-      text-align: center;
-      font-size: 2rem;
-      margin-bottom: 1rem;
-      font-weight: 700;
-      text-shadow: 0 2px 6px rgba(0,0,0,0.3);
-    }
     #quote-text {
       font-size: 1.2rem;
       min-height: 80px;
       transition: opacity 0.5s ease;
       user-select: text;
+      font-style: italic;
     }
     #next-quote {
       background: #764ba2;
@@ -162,6 +148,9 @@
       box-shadow: 0 4px 8px rgba(0,0,0,0.3);
       transition: background 0.3s ease;
       margin-top: 15px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
     }
     #next-quote:hover {
       background: #5a3680;
@@ -173,7 +162,25 @@
       color: #dcdcdc;
       text-shadow: 0 1px 2px rgba(0,0,0,0.2);
       user-select: none;
+      position: relative;
+      z-index: 10;
     }
+
+    /* Mèo con chạy */
+    .cat {
+      position: fixed;
+      width: 60px;
+      height: 60px;
+      background-image: url('https://i.imgur.com/6bKc4Xz.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      pointer-events: none;
+      z-index: 5;
+      user-select: none;
+      will-change: transform;
+      transition: transform 0.5s ease;
+    }
+
     @media (max-width: 480px) {
       h1 {
         font-size: 2rem;
@@ -188,13 +195,17 @@
       #study-tips, #quotes {
         padding: 20px 15px;
       }
+      .cat {
+        width: 40px;
+        height: 40px;
+      }
     }
   </style>
 </head>
 <body>
 
   <h1>Đếm ngược ngày thi THPT Quốc gia 2026</h1>
-  <p class="subtitle">Kỳ thi dự kiến bắt đầu vào ngày <strong>13 tháng 6 năm 2026</strong></p>
+  <p class="subtitle">Kỳ thi dự kiến bắt đầu vào ngày <strong>25 tháng 6 năm 2026</strong></p>
 
   <div id="countdown" aria-label="Đồng hồ đếm ngược">
     <div class="time-box" role="timer" aria-live="polite" aria-atomic="true">
@@ -217,35 +228,37 @@
 
   <section id="study-tips" aria-label="Mẹo học tập hiệu quả">
     <h2>Mẹo học tập hiệu quả</h2>
-
     <div class="tip">
       <div class="tip-title"><span class="emoji" aria-hidden="true">📚</span> Đọc hiểu sâu</div>
       <div class="tip-desc">Ghi chú và tóm tắt những điểm quan trọng khi đọc</div>
     </div>
-
     <div class="tip">
       <div class="tip-title"><span class="emoji" aria-hidden="true">⏰</span> Quản lý thời gian</div>
       <div class="tip-desc">Sử dụng kỹ thuật Pomodoro để tập trung học tập</div>
     </div>
-
     <div class="tip">
       <div class="tip-title"><span class="emoji" aria-hidden="true">🧘</span> Giữ bình tĩnh</div>
       <div class="tip-desc">Thực hành thiền định và bài tập thở giúp giảm căng thẳng</div>
     </div>
   </section>
 
-  <section id="quotes" aria-label="Tiếp Sức">
-    <h2>"</h2>
+  <section id="quotes" aria-label="Cố Gắng">
+    <h2>💝</h2>
     <div id="quote-text"></div>
-    <div style="text-align: center;">
-      <button id="next-quote" aria-label="Xem câu nói tiếp theo">Câu tiếp theo</button>
-    </div>
+    <button id="next-quote" aria-label="Xem câu nói tiếp theo">Câu tiếp theo</button>
   </section>
 
   <footer>Chúc các bạn học sinh ôn thi hiệu quả và đạt kết quả cao!</footer>
 
+  <!-- Nhạc nền ẩn -->
+  <audio id="background-music" src="https://github.com/Dunsiky/imusic/raw/refs/heads/main/潮汐.mp3" loop></audio>
+
+  <!-- Mèo con chạy -->
+  <div id="cat-container"></div>
+
   <script>
-    const targetDate = new Date('2026-06-13T00:00:00');
+    // Đếm ngược
+    const targetDate = new Date('2026-06-25T00:00:00'); // Ngày thi mới 25/06/2026
 
     function animateNumberChange(element, newNumber) {
       const span = document.createElement('span');
@@ -281,7 +294,7 @@
     updateCountdown();
     const timer = setInterval(updateCountdown, 1000);
 
-    // Phần câu nói hay về học tập
+    // Câu nói hay về học tập
     const quotes = [
       "“Học, học nữa, học mãi.” – Hồ Chí Minh",
       "“Tri thức là sức mạnh.” – Francis Bacon",
@@ -309,8 +322,66 @@
       showQuote(currentIndex);
     });
 
-    // Hiển thị câu đầu tiên khi tải trang
     showQuote(currentIndex);
+
+    // Nhạc nền tự động phát (ẩn)
+    const bgMusic = document.getElementById('background-music');
+    bgMusic.volume = 0.15;
+    bgMusic.play().catch(() => {
+      console.log('Tự động phát nhạc bị chặn, cần tương tác người dùng để bật.');
+    });
+
+    // Mèo con chạy
+    const catCount = 3;
+    const catContainer = document.createElement('div');
+    catContainer.style.position = 'fixed';
+    catContainer.style.top = '0';
+    catContainer.style.left = '0';
+    catContainer.style.width = '100vw';
+    catContainer.style.height = '100vh';
+    catContainer.style.pointerEvents = 'none';
+    catContainer.style.zIndex = '5';
+    document.body.appendChild(catContainer);
+
+    class Cat {
+      constructor() {
+        this.el = document.createElement('div');
+        this.el.className = 'cat';
+        catContainer.appendChild(this.el);
+        this.reset();
+      }
+      reset() {
+        this.x = Math.random() * window.innerWidth;
+        this.y = Math.random() * window.innerHeight;
+        this.speedX = (Math.random() * 1 + 0.3) * (Math.random() < 0.5 ? 1 : -1);
+        this.speedY = (Math.random() * 0.5 + 0.2) * (Math.random() < 0.5 ? 1 : -1);
+        this.updatePosition();
+      }
+      updatePosition() {
+        this.el.style.transform = `translate(${this.x}px, ${this.y}px)`;
+      }
+      move() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x < 0) this.speedX = Math.abs(this.speedX);
+        if (this.x > window.innerWidth - this.el.offsetWidth) this.speedX = -Math.abs(this.speedX);
+        if (this.y < 0) this.speedY = Math.abs(this.speedY);
+        if (this.y > window.innerHeight - this.el.offsetHeight) this.speedY = -Math.abs(this.speedY);
+        this.updatePosition();
+      }
+    }
+
+    const cats = [];
+    for (let i = 0; i < catCount; i++) {
+      cats.push(new Cat());
+    }
+
+    function animateCats() {
+      cats.forEach(cat => cat.move());
+      requestAnimationFrame(animateCats);
+    }
+    animateCats();
+
   </script>
 
 </body>
