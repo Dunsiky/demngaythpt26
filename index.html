@@ -4,24 +4,20 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Đếm ngược ngày thi THPT Quốc gia 2026</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+  <!-- Load font Orbitron cho số đếm, font sans-serif cho phần chữ -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet" />
   <style>
-    * {
-      box-sizing: border-box;
-    }
     body {
       margin: 0;
       min-height: 100vh;
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: linear-gradient(135deg, #667eea, #764ba2);
-      color: #fff;
+      color: white;
       text-align: center;
       padding: 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      overflow-x: hidden;
-      position: relative;
     }
     h1 {
       font-size: 3rem;
@@ -38,30 +34,28 @@
     }
     #countdown {
       display: flex;
-      gap: 2rem;
       justify-content: center;
-      flex-wrap: wrap;
+      gap: 2rem;
       margin-bottom: 3rem;
-      z-index: 10;
-      position: relative;
+      flex-wrap: wrap;
     }
     .time-box {
       background: rgba(255, 255, 255, 0.15);
-      padding: 1.5rem 2.5rem;
       border-radius: 15px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      padding: 1.5rem 2rem;
       min-width: 110px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
       transition: background 0.3s ease;
     }
     .time-box:hover {
       background: rgba(255, 255, 255, 0.3);
     }
     .number {
-      font-size: 4rem;
+      font-family: 'Orbitron', sans-serif;
       font-weight: 700;
-      letter-spacing: 0.05em;
+      font-size: 4rem;
+      letter-spacing: 0.1em;
       line-height: 1;
-      position: relative;
       perspective: 1000px;
     }
     .number span {
@@ -80,8 +74,8 @@
     }
     .label {
       margin-top: 0.5rem;
-      font-size: 1.1rem;
       font-weight: 600;
+      font-size: 1.1rem;
       text-transform: uppercase;
       letter-spacing: 0.1em;
       color: #e0e0e0;
@@ -165,6 +159,26 @@
       position: relative;
       z-index: 10;
     }
+    /* Nút bật/tắt nhạc nhỏ gọn */
+    #btn-music {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #764ba2;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 50px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      cursor: pointer;
+      font-weight: 600;
+      z-index: 1000;
+      user-select: none;
+      transition: background 0.3s ease;
+    }
+    #btn-music:hover {
+      background: #5a3680;
+    }
     @media (max-width: 480px) {
       h1 {
         font-size: 2rem;
@@ -178,6 +192,12 @@
       }
       #study-tips, #quotes {
         padding: 20px 15px;
+      }
+      #btn-music {
+        padding: 8px 12px;
+        bottom: 15px;
+        right: 15px;
+        font-size: 14px;
       }
     }
   </style>
@@ -231,9 +251,13 @@
   <footer>Chúc các bạn học sinh ôn thi hiệu quả và đạt kết quả cao!</footer>
 
   <!-- Nhạc nền ẩn -->
-  <audio id="background-music" src="https://github.com/Dunsiky/imusic/raw/refs/heads/main/%E6%BD%9F%E6%B1%90.mp3" loop></audio>
+  <audio id="background-music" src="https://github.com/Dunsiky/imusic/raw/refs/heads/main/潮汐.mp3" loop></audio>
+
+  <!-- Nút bật/tắt nhạc -->
+  <button id="btn-music" aria-label="Bật hoặc tắt nhạc nền">🔈 Bật nhạc</button>
 
   <script>
+    // Đếm ngược
     const targetDate = new Date('2026-06-25T00:00:00');
 
     function animateNumberChange(element, newNumber) {
@@ -300,11 +324,21 @@
 
     showQuote(currentIndex);
 
-    // Nhạc nền tự động phát (ẩn)
-    const bgMusic = document.getElementById('background-music');
-    bgMusic.volume = 0.15;
-    bgMusic.play().catch(() => {
-      console.log('Tự động phát nhạc bị chặn, cần tương tác người dùng để bật.');
+    // Nhạc nền và nút bật/tắt
+    const btn = document.getElementById('btn-music');
+    const audio = document.getElementById('background-music');
+
+    btn.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.play().then(() => {
+          btn.textContent = '🔇 Tắt nhạc';
+        }).catch(() => {
+          alert('Trình duyệt chặn phát nhạc tự động, vui lòng thử lại.');
+        });
+      } else {
+        audio.pause();
+        btn.textContent = '🔈 Bật nhạc';
+      }
     });
   </script>
 
