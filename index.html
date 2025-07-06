@@ -96,6 +96,7 @@
       font-weight: 500;
       line-height: 1.5;
       user-select: none;
+      margin-bottom: 3rem;
     }
     #study-tips h2 {
       text-align: center;
@@ -125,6 +126,46 @@
       padding-left: 2.2rem;
       user-select: text;
     }
+    /* Phần câu nói hay */
+    #quotes {
+      max-width: 600px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 15px;
+      padding: 25px 30px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+      color: #fff;
+      font-style: italic;
+      user-select: none;
+      margin-bottom: 3rem;
+    }
+    #quotes h2 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+    #quote-text {
+      font-size: 1.2rem;
+      min-height: 80px;
+      transition: opacity 0.5s ease;
+      user-select: text;
+    }
+    #next-quote {
+      background: #764ba2;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      transition: background 0.3s ease;
+      margin-top: 15px;
+    }
+    #next-quote:hover {
+      background: #5a3680;
+    }
     footer {
       margin-top: 3rem;
       font-size: 1rem;
@@ -144,7 +185,7 @@
         min-width: 80px;
         padding: 1rem 1.5rem;
       }
-      #study-tips {
+      #study-tips, #quotes {
         padding: 20px 15px;
       }
     }
@@ -193,6 +234,14 @@
     </div>
   </section>
 
+  <section id="quotes" aria-label="Câu nói hay về học tập">
+    <h2>Câu nói hay về học tập</h2>
+    <div id="quote-text"></div>
+    <div style="text-align: center;">
+      <button id="next-quote" aria-label="Xem câu nói tiếp theo">Câu tiếp theo</button>
+    </div>
+  </section>
+
   <footer>Chúc các bạn học sinh ôn thi hiệu quả và đạt kết quả cao!</footer>
 
   <script>
@@ -231,6 +280,37 @@
 
     updateCountdown();
     const timer = setInterval(updateCountdown, 1000);
+
+    // Phần câu nói hay về học tập
+    const quotes = [
+      "“Học, học nữa, học mãi.” – Hồ Chí Minh",
+      "“Tri thức là sức mạnh.” – Francis Bacon",
+      "“Không có con đường nào dẫn đến thành công, thành công là con đường.” – Zig Ziglar",
+      "“Thất bại là mẹ thành công.” – Ngạn ngữ Việt Nam",
+      "“Học tập không bao giờ là lãng phí thời gian.” – Benjamin Franklin",
+      "“Chỉ có học mới giúp ta thoát khỏi nghèo đói và tối tăm.” – Nelson Mandela",
+      "“Người học không biết đủ là người giàu có nhất.” – Khuyết danh"
+    ];
+
+    let currentIndex = 0;
+    const quoteText = document.getElementById('quote-text');
+    const nextBtn = document.getElementById('next-quote');
+
+    function showQuote(index) {
+      quoteText.style.opacity = 0;
+      setTimeout(() => {
+        quoteText.textContent = quotes[index];
+        quoteText.style.opacity = 1;
+      }, 300);
+    }
+
+    nextBtn.addEventListener('click', () => {
+      currentIndex = (currentIndex + 1) % quotes.length;
+      showQuote(currentIndex);
+    });
+
+    // Hiển thị câu đầu tiên khi tải trang
+    showQuote(currentIndex);
   </script>
 
 </body>
