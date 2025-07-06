@@ -165,22 +165,6 @@
       position: relative;
       z-index: 10;
     }
-
-    /* Mèo con chạy */
-    .cat {
-      position: fixed;
-      width: 60px;
-      height: 60px;
-      background-image: url('https://i.imgur.com/6bKc4Xz.png');
-      background-size: contain;
-      background-repeat: no-repeat;
-      pointer-events: none;
-      z-index: 5;
-      user-select: none;
-      will-change: transform;
-      transition: transform 0.5s ease;
-    }
-
     @media (max-width: 480px) {
       h1 {
         font-size: 2rem;
@@ -194,10 +178,6 @@
       }
       #study-tips, #quotes {
         padding: 20px 15px;
-      }
-      .cat {
-        width: 40px;
-        height: 40px;
       }
     }
   </style>
@@ -242,8 +222,8 @@
     </div>
   </section>
 
-  <section id="quotes" aria-label="Cố Gắng">
-    <h2>💝</h2>
+  <section id="quotes" aria-label="Câu nói hay về học tập">
+    <h2>Câu nói hay về học tập</h2>
     <div id="quote-text"></div>
     <button id="next-quote" aria-label="Xem câu nói tiếp theo">Câu tiếp theo</button>
   </section>
@@ -251,14 +231,10 @@
   <footer>Chúc các bạn học sinh ôn thi hiệu quả và đạt kết quả cao!</footer>
 
   <!-- Nhạc nền ẩn -->
-  <audio id="background-music" src="https://github.com/Dunsiky/imusic/raw/refs/heads/main/潮汐.mp3" loop></audio>
-
-  <!-- Mèo con chạy -->
-  <div id="cat-container"></div>
+  <audio id="background-music" src="https://github.com/Dunsiky/imusic/raw/refs/heads/main/%E6%BD%9F%E6%B1%90.mp3" loop></audio>
 
   <script>
-    // Đếm ngược
-    const targetDate = new Date('2026-06-25T00:00:00'); // Ngày thi mới 25/06/2026
+    const targetDate = new Date('2026-06-25T00:00:00');
 
     function animateNumberChange(element, newNumber) {
       const span = document.createElement('span');
@@ -330,58 +306,6 @@
     bgMusic.play().catch(() => {
       console.log('Tự động phát nhạc bị chặn, cần tương tác người dùng để bật.');
     });
-
-    // Mèo con chạy
-    const catCount = 3;
-    const catContainer = document.createElement('div');
-    catContainer.style.position = 'fixed';
-    catContainer.style.top = '0';
-    catContainer.style.left = '0';
-    catContainer.style.width = '100vw';
-    catContainer.style.height = '100vh';
-    catContainer.style.pointerEvents = 'none';
-    catContainer.style.zIndex = '5';
-    document.body.appendChild(catContainer);
-
-    class Cat {
-      constructor() {
-        this.el = document.createElement('div');
-        this.el.className = 'cat';
-        catContainer.appendChild(this.el);
-        this.reset();
-      }
-      reset() {
-        this.x = Math.random() * window.innerWidth;
-        this.y = Math.random() * window.innerHeight;
-        this.speedX = (Math.random() * 1 + 0.3) * (Math.random() < 0.5 ? 1 : -1);
-        this.speedY = (Math.random() * 0.5 + 0.2) * (Math.random() < 0.5 ? 1 : -1);
-        this.updatePosition();
-      }
-      updatePosition() {
-        this.el.style.transform = `translate(${this.x}px, ${this.y}px)`;
-      }
-      move() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-        if (this.x < 0) this.speedX = Math.abs(this.speedX);
-        if (this.x > window.innerWidth - this.el.offsetWidth) this.speedX = -Math.abs(this.speedX);
-        if (this.y < 0) this.speedY = Math.abs(this.speedY);
-        if (this.y > window.innerHeight - this.el.offsetHeight) this.speedY = -Math.abs(this.speedY);
-        this.updatePosition();
-      }
-    }
-
-    const cats = [];
-    for (let i = 0; i < catCount; i++) {
-      cats.push(new Cat());
-    }
-
-    function animateCats() {
-      cats.forEach(cat => cat.move());
-      requestAnimationFrame(animateCats);
-    }
-    animateCats();
-
   </script>
 
 </body>
