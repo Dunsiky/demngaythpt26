@@ -4,15 +4,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Đếm ngược ngày thi THPT Quốc gia 2026</title>
-  <!-- Load font Orbitron cho số đếm, Roboto cho chữ -->
+  <!-- Font chữ đẹp, phổ biến -->
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto&display=swap" rel="stylesheet" />
   <style>
+    /* Reset cơ bản */
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
     body {
-      margin: 0;
-      min-height: 100vh;
       font-family: 'Roboto', sans-serif;
       background: linear-gradient(135deg, #3a1c71, #d76d77, #ffaf7b);
       color: #f0f0f0;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -34,6 +37,8 @@
       font-weight: 500;
       text-shadow: 0 0 8px rgba(0,0,0,0.3);
       user-select: none;
+      text-align: center;
+      max-width: 700px;
     }
     #countdown {
       display: flex;
@@ -56,6 +61,7 @@
       backdrop-filter: blur(10px);
       position: relative;
       overflow: hidden;
+      text-align: center;
     }
     .time-box:hover {
       background: rgba(255, 255, 255, 0.3);
@@ -68,7 +74,6 @@
       color: #fefefe;
       letter-spacing: 0.15em;
       line-height: 1;
-      position: relative;
       perspective: 800px;
       user-select: text;
     }
@@ -184,6 +189,7 @@
       margin-top: auto;
       user-select: none;
       text-shadow: 0 0 5px rgba(0,0,0,0.4);
+      text-align: center;
     }
     #btn-music {
       position: fixed;
@@ -287,14 +293,11 @@
 
   <footer>Chúc các bạn học sinh ôn thi hiệu quả và đạt kết quả cao!</footer>
 
-  <!-- Nhạc nền ẩn -->
-  <audio id="background-music" src="https://github.com/Dunsiky/imusic/raw/refs/heads/main/潮汐.mp3" loop></audio>
+  <audio id="background-music" src="https://github.com/Dunsiky/imusic/raw/refs/heads/main/%E6%BD%9F%E6%B1%90.mp3" loop></audio>
 
-  <!-- Nút bật/tắt nhạc -->
   <button id="btn-music" aria-label="Bật hoặc tắt nhạc nền"><span class="icon">🔈</span> Bật nhạc</button>
 
   <script>
-    // Đếm ngược
     const targetDate = new Date('2026-06-25T00:00:00');
 
     function animateNumberChange(element, newNumber) {
@@ -331,7 +334,6 @@
     updateCountdown();
     const timer = setInterval(updateCountdown, 1000);
 
-    // Câu nói hay về học tập (Trích)
     const quotes = [
       "“Học, học nữa, học mãi.” – Hồ Chí Minh",
       "“Tri thức là sức mạnh.” – Francis Bacon",
@@ -361,7 +363,6 @@
 
     showQuote(currentIndex);
 
-    // Nhạc nền và nút bật/tắt
     const btn = document.getElementById('btn-music');
     const audio = document.getElementById('background-music');
 
