@@ -1,398 +1,266 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Đếm ngược ngày thi THPT Quốc gia 2026</title>
-  <!-- Font chữ đẹp, phổ biến -->
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto&display=swap" rel="stylesheet" />
-  <style>
-    /* Reset cơ bản */
-    * {
-      margin: 0; padding: 0; box-sizing: border-box;
-    }
-    body {
-      font-family: 'Roboto', sans-serif;
-      background: linear-gradient(135deg, #3a1c71, #d76d77, #ffaf7b);
-      color: #f0f0f0;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 30px 20px;
-      overflow-x: hidden;
-    }
-    h1 {
-      font-family: 'Orbitron', sans-serif;
-      font-weight: 700;
-      font-size: 3.5rem;
-      margin-bottom: 0.3em;
-      text-shadow: 0 0 12px rgba(255, 255, 255, 0.7);
-      letter-spacing: 0.1em;
-      user-select: none;
-    }
-    p.subtitle {
-      font-size: 1.3rem;
-      margin-bottom: 3rem;
-      font-weight: 500;
-      text-shadow: 0 0 8px rgba(0,0,0,0.3);
-      user-select: none;
-      text-align: center;
-      max-width: 700px;
-    }
-    #countdown {
-      display: flex;
-      gap: 2.5rem;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-bottom: 4rem;
-      width: 100%;
-      max-width: 700px;
-    }
-    .time-box {
-      background: rgba(255, 255, 255, 0.15);
-      border-radius: 20px;
-      padding: 1.8rem 3rem;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.3);
-      min-width: 130px;
-      cursor: default;
-      transition: background 0.3s ease;
-      user-select: none;
-      backdrop-filter: blur(10px);
-      position: relative;
-      overflow: hidden;
-      text-align: center;
-    }
-    .time-box:hover {
-      background: rgba(255, 255, 255, 0.3);
-      box-shadow: 0 12px 40px rgba(255, 255, 255, 0.5);
-    }
-    .number {
-      font-family: 'Orbitron', sans-serif;
-      font-weight: 700;
-      font-size: 5rem;
-      color: #fefefe;
-      letter-spacing: 0.15em;
-      line-height: 1;
-      perspective: 800px;
-      user-select: text;
-    }
-    .number span {
-      display: inline-block;
-      animation: flip 0.5s ease forwards;
-      backface-visibility: hidden;
-    }
-    @keyframes flip {
-      0% {
-        transform: rotateX(90deg);
-        opacity: 0;
-      }
-      100% {
-        transform: rotateX(0deg);
-        opacity: 1;
-      }
-    }
-    .label {
-      margin-top: 0.6rem;
-      font-weight: 600;
-      font-size: 1.2rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: #e0e0e0;
-      text-shadow: 0 0 6px rgba(0,0,0,0.4);
-      user-select: none;
-    }
-    section {
-      max-width: 700px;
-      background: rgba(255, 255, 255, 0.12);
-      border-radius: 20px;
-      padding: 30px 35px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.25);
-      color: #fafafa;
-      user-select: none;
-      backdrop-filter: blur(12px);
-      margin-bottom: 3.5rem;
-      text-align: left;
-      position: relative;
-      transition: transform 0.6s ease, opacity 0.6s ease;
-      opacity: 0;
-      transform: translateY(40px);
-    }
-    section.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    section h2 {
-      text-align: center;
-      font-size: 2.4rem;
-      margin-bottom: 1.5rem;
-      font-weight: 700;
-      text-shadow: 0 0 12px rgba(255,255,255,0.7);
-      user-select: none;
-    }
-    .tip {
-      margin-bottom: 1.8rem;
-    }
-    .tip-title {
-      font-weight: 700;
-      font-size: 1.4rem;
-      display: flex;
-      align-items: center;
-      gap: 0.7rem;
-      margin-bottom: 0.4rem;
-      user-select: text;
-    }
-    .tip-title span.emoji {
-      font-size: 1.8rem;
-    }
-    .tip-desc {
-      font-size: 1.1rem;
-      color: #dcdcdc;
-      padding-left: 2.4rem;
-      user-select: text;
-      line-height: 1.5;
-    }
-    #quote-text {
-      font-style: italic;
-      font-size: 1.3rem;
-      min-height: 90px;
-      color: #f0f0f0;
-      user-select: text;
-      text-align: center;
-      padding: 0 20px;
-      line-height: 1.6;
-      letter-spacing: 0.02em;
-    }
-    #next-quote {
-      display: block;
-      margin: 25px auto 0;
-      background: #ff7e5f;
-      background: linear-gradient(45deg, #ff7e5f, #feb47b);
-      border: none;
-      padding: 12px 28px;
-      border-radius: 50px;
-      font-weight: 700;
-      font-size: 1.1rem;
-      color: white;
-      cursor: pointer;
-      box-shadow: 0 6px 15px rgba(255,126,95,0.6);
-      transition: background 0.3s ease;
-      user-select: none;
-    }
-    #next-quote:hover {
-      background: linear-gradient(45deg, #feb47b, #ff7e5f);
-    }
-    footer {
-      font-style: italic;
-      font-size: 1rem;
-      color: #ddd;
-      margin-top: auto;
-      user-select: none;
-      text-shadow: 0 0 5px rgba(0,0,0,0.4);
-      text-align: center;
-    }
-    #btn-music {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(8px);
-      color: #fff;
-      border: none;
-      padding: 10px 16px;
-      border-radius: 50px;
-      box-shadow: 0 4px 15px rgba(255,255,255,0.3);
-      cursor: pointer;
-      font-weight: 700;
-      font-size: 1.1rem;
-      z-index: 1000;
-      user-select: none;
-      transition: background 0.3s ease, color 0.3s ease;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    #btn-music:hover {
-      background: rgba(255, 255, 255, 0.35);
-      color: #333;
-      box-shadow: 0 6px 20px rgba(255,255,255,0.6);
-    }
-    #btn-music span.icon {
-      font-size: 1.3rem;
-      user-select: none;
-    }
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 2.5rem;
-      }
-      .number {
-        font-size: 3.5rem;
-      }
-      .time-box {
-        min-width: 90px;
-        padding: 1.3rem 1.8rem;
-      }
-      section {
-        max-width: 100%;
-        padding: 25px 20px;
-      }
-      #btn-music {
-        padding: 8px 14px;
-        font-size: 1rem;
-        bottom: 15px;
-        right: 15px;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đếm ngày thi THPT 2026</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        h1 {
+            font-size: 3.5em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .countdown-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 30px 0;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        #countdown {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            margin-bottom: 20px;
+        }
+
+        .time-units {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .time-unit {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 10px;
+            min-width: 120px;
+            backdrop-filter: blur(5px);
+        }
+
+        .time-unit .number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #ffd700;
+        }
+
+        .time-unit .label {
+            font-size: 0.9em;
+            margin-top: 5px;
+            opacity: 0.9;
+        }
+
+        .quote-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            border-left: 5px solid #ffd700;
+            animation: fadeIn 1s ease-out 0.6s both;
+        }
+
+        .quote {
+            font-size: 1.3em;
+            font-style: italic;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .quote-author {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #ffd700;
+        }
+
+        .motivation {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            animation: fadeIn 1s ease-out 0.9s both;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5em;
+            }
+            
+            #countdown {
+                font-size: 1.8em;
+            }
+            
+            .time-units {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .time-unit {
+                margin: 5px 0;
+                width: 200px;
+            }
+        }
+    </style>
 </head>
 <body>
+    <div class="container">
+        <h1>🎓 Đếm ngày thi THPT 2026</h1>
+        
+        <div class="countdown-container">
+            <div id="countdown">Đang tải...</div>
+            <div class="time-units">
+                <div class="time-unit">
+                    <div class="number" id="days">0</div>
+                    <div class="label">Ngày</div>
+                </div>
+                <div class="time-unit">
+                    <div class="number" id="hours">0</div>
+                    <div class="label">Giờ</div>
+                </div>
+                <div class="time-unit">
+                    <div class="number" id="minutes">0</div>
+                    <div class="label">Phút</div>
+                </div>
+                <div class="time-unit">
+                    <div class="number" id="seconds">0</div>
+                    <div class="label">Giây</div>
+                </div>
+            </div>
+        </div>
 
-  <h1>Đếm ngược ngày thi THPT Quốc gia 2026</h1>
-  <p class="subtitle">Kỳ thi dự kiến bắt đầu vào ngày <strong>25 tháng 6 năm 2026</strong></p>
+        <div class="quote-container">
+            <div class="quote" id="quote-text">
+                "Học, học nữa, học mãi."
+            </div>
+            <div class="quote-author">- Chủ tịch Hồ Chí Minh</div>
+        </div>
 
-  <div id="countdown" aria-label="Đồng hồ đếm ngược">
-    <div class="time-box" role="timer" aria-live="polite" aria-atomic="true">
-      <div id="days" class="number" aria-label="Số ngày">0</div>
-      <div class="label">Ngày</div>
+        <div class="motivation">
+            <p><strong>💪 Hãy cố gắng mỗi ngày để đạt được ước mơ của mình!</strong></p>
+        </div>
     </div>
-    <div class="time-box" role="timer" aria-live="polite" aria-atomic="true">
-      <div id="hours" class="number" aria-label="Số giờ">00</div>
-      <div class="label">Giờ</div>
-    </div>
-    <div class="time-box" role="timer" aria-live="polite" aria-atomic="true">
-      <div id="minutes" class="number" aria-label="Số phút">00</div>
-      <div class="label">Phút</div>
-    </div>
-    <div class="time-box" role="timer" aria-live="polite" aria-atomic="true">
-      <div id="seconds" class="number" aria-label="Số giây">00</div>
-      <div class="label">Giây</div>
-    </div>
-  </div>
 
-  <section id="study-tips" aria-label="Mẹo học tập hiệu quả">
-    <h2>Mẹo học tập hiệu quả</h2>
-    <div class="tip">
-      <div class="tip-title"><span class="emoji" aria-hidden="true">📚</span> Đọc hiểu sâu</div>
-      <div class="tip-desc">Ghi chú và tóm tắt những điểm quan trọng khi đọc</div>
-    </div>
-    <div class="tip">
-      <div class="tip-title"><span class="emoji" aria-hidden="true">⏰</span> Quản lý thời gian</div>
-      <div class="tip-desc">Sử dụng kỹ thuật Pomodoro để tập trung học tập</div>
-    </div>
-    <div class="tip">
-      <div class="tip-title"><span class="emoji" aria-hidden="true">🧘</span> Giữ bình tĩnh</div>
-      <div class="tip-desc">Thực hành thiền định và bài tập thở giúp giảm căng thẳng</div>
-    </div>
-  </section>
+    <script>
+        const examDate = new Date('2026-06-25T08:00:00');
+        
+        const quotes = [
+            "Học, học nữa, học mãi.",
+            "Muốn thành công phải có ý chí quyết tâm.",
+            "Không có gì quý hơn độc lập tự do.",
+            "Đoàn kết là sức mạnh vô địch.",
+            "Thất bại là mẹ thành công.",
+            "Cần, kiệm, liêm, chính.",
+            "Tự lực cánh sinh là con đường duy nhất dẫn tới thành công.",
+            "Học để làm người có ích cho xã hội.",
+            "Kiên trì, nỗ lực sẽ đạt được mục tiêu.",
+            "Đức độ là nền tảng của mọi thành công."
+        ];
 
-  <section id="quotes" aria-label="Trích">
-    <h2>Trích</h2>
-    <div id="quote-text"></div>
-    <button id="next-quote" aria-label="Xem trích tiếp theo">Trích tiếp theo</button>
-  </section>
+        let currentQuoteIndex = 0;
 
-  <footer>Chúc các bạn học sinh ôn thi hiệu quả và đạt kết quả cao!</footer>
+        function updateCountdown() {
+            const now = new Date();
+            const diff = examDate - now;
 
-  <audio id="background-music" src="https://github.com/Dunsiky/imusic/raw/refs/heads/main/%E6%BD%9F%E6%B1%90.mp3" loop></audio>
+            if (diff <= 0) {
+                document.getElementById('countdown').textContent = 'Kỳ thi đã bắt đầu! Chúc các em thi tốt!';
+                document.getElementById('days').textContent = '0';
+                document.getElementById('hours').textContent = '0';
+                document.getElementById('minutes').textContent = '0';
+                document.getElementById('seconds').textContent = '0';
+                return;
+            }
 
-  <button id="btn-music" aria-label="Bật hoặc tắt nhạc nền"><span class="icon">🔈</span> Bật nhạc</button>
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-  <script>
-    const targetDate = new Date('2026-06-25T00:00:00');
-
-    function animateNumberChange(element, newNumber) {
-      const span = document.createElement('span');
-      span.textContent = newNumber.toString().padStart(2, '0');
-      element.textContent = '';
-      element.appendChild(span);
-    }
-
-    function updateCountdown() {
-      const now = new Date();
-      const diff = targetDate - now;
-
-      if (diff <= 0) {
-        ['days', 'hours', 'minutes', 'seconds'].forEach(id => {
-          document.getElementById(id).textContent = id === 'days' ? '0' : '00';
-        });
-        clearInterval(timer);
-        alert('Kỳ thi THPT Quốc gia 2026 đã bắt đầu!');
-        return;
-      }
-
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((diff / (1000 * 60)) % 60);
-      const seconds = Math.floor((diff / 1000) % 60);
-
-      animateNumberChange(document.getElementById('days'), days);
-      animateNumberChange(document.getElementById('hours'), hours);
-      animateNumberChange(document.getElementById('minutes'), minutes);
-      animateNumberChange(document.getElementById('seconds'), seconds);
-    }
-
-    updateCountdown();
-    const timer = setInterval(updateCountdown, 1000);
-
-    const quotes = [
-      "“Học, học nữa, học mãi.” – Hồ Chí Minh",
-      "“Tri thức là sức mạnh.” – Francis Bacon",
-      "“Không có con đường nào dẫn đến thành công, thành công là con đường.” – Zig Ziglar",
-      "“Thất bại là mẹ thành công.” – Ngạn ngữ Việt Nam",
-      "“Học tập không bao giờ là lãng phí thời gian.” – Benjamin Franklin",
-      "“Chỉ có học mới giúp ta thoát khỏi nghèo đói và tối tăm.” – Nelson Mandela",
-      "“Người học không biết đủ là người giàu có nhất.” – Khuyết danh"
-    ];
-
-    let currentIndex = 0;
-    const quoteText = document.getElementById('quote-text');
-    const nextBtn = document.getElementById('next-quote');
-
-    function showQuote(index) {
-      quoteText.style.opacity = 0;
-      setTimeout(() => {
-        quoteText.textContent = quotes[index];
-        quoteText.style.opacity = 1;
-      }, 300);
-    }
-
-    nextBtn.addEventListener('click', () => {
-      currentIndex = (currentIndex + 1) % quotes.length;
-      showQuote(currentIndex);
-    });
-
-    showQuote(currentIndex);
-
-    const btn = document.getElementById('btn-music');
-    const audio = document.getElementById('background-music');
-
-    btn.addEventListener('click', () => {
-      if (audio.paused) {
-        audio.play().then(() => {
-          btn.innerHTML = '<span class="icon">🔇</span> Tắt nhạc';
-        }).catch(() => {
-          alert('Trình duyệt chặn phát nhạc tự động, vui lòng thử lại.');
-        });
-      } else {
-        audio.pause();
-        btn.innerHTML = '<span class="icon">🔈</span> Bật nhạc';
-      }
-    });
-
-    // Hiệu ứng hiển thị section khi cuộn trang
-    const sections = document.querySelectorAll('section');
-    function revealOnScroll() {
-      const triggerBottom = window.innerHeight * 0.85;
-      sections.forEach(section => {
-        const top = section.getBoundingClientRect().top;
-        if (top < triggerBottom) {
-          section.classList.add('visible');
+            document.getElementById('countdown').textContent = `Còn ${days} ngày đến kỳ thi THPT 2026`;
+            document.getElementById('days').textContent = days;
+            document.getElementById('hours').textContent = hours;
+            document.getElementById('minutes').textContent = minutes;
+            document.getElementById('seconds').textContent = seconds;
         }
-      });
-    }
-    window.addEventListener('scroll', revealOnScroll);
-    window.addEventListener('load', revealOnScroll);
-  </script>
 
+        function changeQuote() {
+            currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
+            document.getElementById('quote-text').textContent = `"${quotes[currentQuoteIndex]}"`;
+        }
+
+        // Cập nhật đồng hồ đếm ngược mỗi giây
+        setInterval(updateCountdown, 1000);
+        
+        // Thay đổi câu trích dẫn mỗi 10 giây
+        setInterval(changeQuote, 10000);
+        
+        // Khởi tạo
+        updateCountdown();
+    </script>
 </body>
 </html>
